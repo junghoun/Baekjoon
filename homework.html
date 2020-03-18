@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<script src="js/jquery-3.4.1.js"
+      			integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+     			crossorigin="anonymous"></script>
+		<style type="text/css">
+			#container {
+				background-color : #cccccc;
+				width : 1000px;
+				padding : auto;
+				margin : auto;
+			}
+		
+			.main {
+				padding : 30px;
+				width : 500px;
+				margin : auto;
+				text-align : center;
+			}
+			
+			.main img {
+				width : 500px;
+				height : auto;
+			}
+			
+			.menu_list {
+				width : 1000px;
+				padding : auto;
+				margin : auto;
+			}
+			
+			.menu_list img {
+				width : 220px; 
+				margin: 10px;
+				
+			}
+			
+		</style>
+		<script type="text/javascript">
+			var images = ['./images/cake.jpg', './images/burger.jpg', './images/steak.jpg', './images/sandwich.jpg'];
+	    	var menus = ['케이크', '햄버거', '스테이크', '샌드위치'];
+	    	var imdx = ['im1', 'im2', 'im3', 'im4'];
+	    	
+	    	function random(choice){
+	    		if(choice == 4)
+	    			choice = Math.floor(Math.random()*4);
+	    		
+	    		$("#today").html('오늘의 메뉴 : ' + menus[choice]);
+				$("#iid").attr("src", images[choice]);	    		
+	    		
+	    		
+	    		for(var i =0; i < 4; i++) {
+	    			if(i == choice) {
+	    				$("#" + imdx[i]).css("width", "220px");
+	    				$("#" + imdx[i]).css("opacity", "1");
+	    				$("#" + imdx[i]).css("border", "1px solid black");
+	    				$("#" + imdx[i]).attr("onmouseover", "");
+	    				$("#" + imdx[i]).attr("onmouseout", "");
+	    					    				
+	    				
+	    			}
+	    			else{
+	    				$("#" + imdx[i]).css("opacity", "0.3");
+	    				$("#" + imdx[i]).attr("onmouseover", "mouseOver(this)");
+	    				$("#" + imdx[i]).attr("onmouseout", "mouseOut(this)");
+	    				
+	    				
+	    			}
+	    		}
+	    		
+	    		
+	    	}
+		
+	    	function mouseOver(val) {
+	    		$("#" + imdx[val]).css("opacity", "1.0");
+	    	}	
+	    	
+	    	function mouseOut(val) {
+	    		$("#" + imdx[val]).css("opacity", "0.3");	
+	    	}
+	    	
+		</script>
+	</head>
+	<body>
+		<div id = "container">
+			<section class = "main">
+				<button style = "width : 100px;"onclick="random(4);">랜덤 선택</button>
+				<h1 id = "today">오늘의 메뉴 : 케이크</h1>
+				<img id = "iid" src = "./images/cake.jpg">
+			</section>
+			<section class = "menu_list">
+				<span>
+					<img id = "im1" src="./images/cake.jpg"  style = "width : 220px; border : 1px solid black;" onclick="random(0);" onmouseover ="" onmouseout="">
+					<img id = "im2" src="./images/burger.jpg"  style ="opacity: 0.3;" onclick="random(1);" onmouseover ="mouseOver(this);" onmouseout="mouseOut(this);">
+					<img id = "im3" src="./images/steak.jpg"  style ="opacity: 0.3;" onclick="random(2);" onmouseover ="mouseOver(this);" onmouseout="mouseOut(this);">
+					<img id = "im4" src="./images/sandwich.jpg"  style ="opacity: 0.3;" onclick="random(3);" onmouseover ="mouseOver(this);" onmouseout="mouseOut(this);">
+					
+				</span>
+			</section>
+		</div>
+	</body>
+</html>
