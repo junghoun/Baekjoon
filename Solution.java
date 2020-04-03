@@ -1,50 +1,66 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Comparator;
-import java.util.TreeSet;
-
-/**
- * 정렬 - 우선순위 중복을 제거
- * 
- * 선택정렬 O[N^2] 시간이 터짐 API 정렬 O[NlogN] : 3100ms, 중복을 직접 제거 중복제거를 TreeSet
- * O[NlongN] : 2,900ms TreeSet, 입출력 최적화:
- * 
- * 아이디어 : 글자 개수에 해당하는 배열에 글자길이가 동일한 이름들을 TreeSet으로 사전순 정렬해보자
- * 
- *  글자 개수가 작은 TreeSet 부터 출력하면 됨
- * 	글자의 개수가 골고루 포진되어 있을 때 시간을 많이 줄일 수 있다.
- */
+import java.util.Arrays;
+import java.util.StringTokenizer;
 
 public class Solution {
-	public static void main(String[] args) throws IOException {
+	static int[][] arr;
+	static long[] dp;
+	static int N;
+	static final int MOD = 998244353;
+	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
-
-		int T = Integer.parseInt(br.readLine());
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		
+		
+		int T = Integer.parseInt(st.nextToken());
+		
 		for (int t = 1; t <= T; t++) {
-			int N = Integer.parseInt(br.readLine()); // 이름의 개수 1~20,000
 
-			TreeSet<String>[] tsrr = new TreeSet[51];
-			for (int i = 0; i < tsrr.length; i++) {
-				tsrr[i] = new TreeSet<String>(); // 배열 각 칸에 생성해서 넣기
+			st = new StringTokenizer(br.readLine());
+			N = Integer.parseInt(st.nextToken());
+			arr = new int[N+1][3];
+			
+			for(int i =2; i <= N; i++) {
+				st = new StringTokenizer(br.readLine());
+				arr[i][0] = Integer.parseInt(st.nextToken());
+				arr[i][1] = Integer.parseInt(st.nextToken());
+				arr[i][2] = Integer.parseInt(st.nextToken());
 			}
-
-			for (int i = 0; i < N; i++) {
-				String str = br.readLine();
-				tsrr[str.length()].add(str);
-			}
-
-			sb.append("#").append(t).append("\n");
-			for (int i = 1; i < tsrr.length; i++) {
-				for (String string : tsrr[i]) {
-					sb.append(string + "\n");
+			
+			
+			st = new StringTokenizer(br.readLine());
+			int M = Integer.parseInt(st.nextToken());
+			sb.append("#" + t);
+			st = new StringTokenizer(br.readLine());
+			for(int i =0; i < M; i++) {
+				dp = new long[N+1];
+				dp[0] = 1;
+				dp[1] = Integer.parseInt(st.nextToken());
+				
+				for(int j =2; j<= N; j++) {
+					switch(arr[j][0]) {
+					case 1:
+						dp[j] = (dp[arr[j][1]] + dp[arr[j][2]])%MOD;
+						break;
+					case 2:
+						dp[j] = (arr[j][1] * dp[arr[j][2]])%MOD;
+						break;
+					default:
+						dp[j] = (dp[arr[j][1]] * dp[arr[j][2]])%MOD;	
+					}
 				}
+				sb.append(" " + dp[N]);
 			}
 
-
+			sb.append("\n");
+			
 		}
 		System.out.println(sb);
 	}
 
+	
 }
