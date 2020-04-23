@@ -2,7 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class 백준_K번째수_1300 {
+public class boj_1300 {
 	static int[] dx = { -1, 0, 1, 0 };
 	static int[] dy = { 0, 1, 0, -1 };
 
